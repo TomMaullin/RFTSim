@@ -19,15 +19,16 @@ function inputStruct = getInputs(D)
         inputStruct = struct;
         
         if D == 2
-            [simulatedData, FWHM] = %2D DATA SIMULATION FUNCTION NEEDED
+            [simulatedData, FWHM] = datagen(5,1)
+            
         else
-            [simulatedData, FWHM] = %3D DATA SIMULATION FUNCTION NEEDED
+            [simulatedData, FWHM] = datagen(6,1)
         end
+        FWHM = FWHM^D; %Note here we assume that the FWHM is the same in every direction.
         
         inputStruct.D = D;
         inputStruct.u = 0.05;
         inputStruct.W = FWHM/sqrt(4*log(2));
         inputStruct.S = numel(simulatedData);
-
 end
 
