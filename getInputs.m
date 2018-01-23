@@ -23,10 +23,10 @@ function inputStruct = getInputs(D)
         else
             simulatedData = datagen(6,1);
         end
-        FWHM = 6^D; %Note here we assume that the FWHM is the same in every direction.
+        FWHM = 6; %Note here we assume that the FWHM is the same in every direction.
         
         inputStruct.D = D;
-        inputStruct.u = 0.05;
+        inputStruct.u = 2.58;
         inputStruct.W = FWHM/sqrt(4*log(2));
         inputStruct.S = numel(simulatedData);
 end
