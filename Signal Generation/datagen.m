@@ -1,4 +1,4 @@
-function [ data ] = datagen( Dim, nSubj, Smo, Mag, Rad, rimFWHM )
+function [ data, Smo ] = datagen( Dim, nSubj, Smo, Mag, Rad, rimFWHM )
 % DATAGEN( Dim, nSubj, Smo, Mag, Rad, rimFWHM ) generates 2d smoothed 
 % images with signal.
 %--------------------------------------------------------------------------
