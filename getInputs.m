@@ -19,12 +19,11 @@ function inputStruct = getInputs(D)
         inputStruct = struct;
         
         if D == 2
-            [simulatedData, FWHM] = datagen(5,1);
-            
+            simulatedData = datagen(5,1);
         else
-            [simulatedData, FWHM] = datagen(6,1);
+            simulatedData = datagen(6,1);
         end
-        FWHM = FWHM^D; %Note here we assume that the FWHM is the same in every direction.
+        FWHM = 6^D; %Note here we assume that the FWHM is the same in every direction.
         
         inputStruct.D = D;
         inputStruct.u = 0.05;
