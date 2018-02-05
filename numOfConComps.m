@@ -22,7 +22,7 @@ function truen = numOfConComps(sim, thresh, D)
     if D == 2     
         conComponents = bwconncomp(sim, 4);
     elseif D == 3
-        conComponents = bwconncom(sim, 18);
+        conComponents = bwconncomp(sim, 18);
     else
         error('Nope');
     end 
