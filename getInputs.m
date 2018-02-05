@@ -29,5 +29,6 @@ function inputStruct = getInputs(D)
         inputStruct.u = 2.58;
         inputStruct.W = FWHM/sqrt(4*log(2));
         inputStruct.S = numel(simulatedData);
+        inputStruct.sim = simulatedData;
 end
 
