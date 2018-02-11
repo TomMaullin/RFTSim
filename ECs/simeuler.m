@@ -2,7 +2,7 @@ av_m = 0;
 tot_iters = 100;
 thresh = 2.5;
 D = 2;
-FWHM = 5;
+FWHM = 10;
 
 for iter = 1:tot_iters
 

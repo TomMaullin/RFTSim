@@ -52,6 +52,7 @@ end
 plot(u_vals, EC,'linewidth', 2)
 hold on
 plot(u_vals, Em,'linewidth', 2)
+xlabel('threshold')
 legend('Theoretical EC', 'Average number of clusters observed after 50 simulations')
 
 end
