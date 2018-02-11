@@ -1,6 +1,7 @@
-function [ data, Smo ] = datagen( Dim, nSubj, Smo, Mag, Rad, rimFWHM )
+function [ data, Smo ] = datagen( Dim, nSubj, use_sig, Smo, Mag, Rad, rimFWHM )
 % DATAGEN( Dim, nSubj, Smo, Mag, Rad, rimFWHM ) generates 2d smoothed 
-% images with signal.
+% images with signal. The noise is scaled so that it has variance 1 after
+% smoothing.
 %--------------------------------------------------------------------------
 % ARGUMENTS
 % nSubj     is the number of subjects which corresponds to the number of
@@ -56,7 +57,7 @@ if (Dim == 4)
     reshape = 1;
     Dim = [91, 109, 91];
 end
-use_sig = 1;
+% use_sig = 1;
 if (Dim == 5)
     %Generate random noise images. 2D.
     use_sig = 0;
@@ -72,15 +73,18 @@ if (nargin < 2)
     nSubj  = 20;  % Number of subjects
 end
 if (nargin < 3)
-    Smo = 6;
+    use_sig = 0;
 end
 if (nargin < 4)
-    Mag = 3;
+    Smo = 6;
 end
 if (nargin < 5)
-    Rad = 20;
+    Mag = 3;
 end
 if (nargin < 6)
+    Rad = 20;
+end
+if (nargin < 7)
     rimFWHM = 3;
 end
 
