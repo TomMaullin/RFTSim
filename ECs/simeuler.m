@@ -1,6 +1,6 @@
 av_m = 0;
 tot_iters = 100;
-thresh = 4;
+thresh = 2.5;
 D = 2;
 FWHM = 5;
 
