@@ -18,7 +18,7 @@
 % simul > thresh
 % numOfConComps(simul, thresh, 2)
 %==========================================================================
-function truen = numOfConComps(sim, thresh, D)
+function [truen, occurences, sizes] = numOfConComps(sim, thresh, D)
 
     %Remove values below threshold.
     sim(sim<=thresh) = 0;
@@ -36,5 +36,11 @@ function truen = numOfConComps(sim, thresh, D)
     %Return the true number of connected components/clusters.
     truen = conComponents.NumObjects;
     
-    %sizeArray = cellfun(@(x) length(x), conComponents.PixelIdxList);
+    %Get a list of sizes of the clusters.
+    sizeArray = cellfun(@(x) length(x), conComponents.PixelIdxList);
+    
+    %Get the number of occurences for each cluster size. e.g. occurences(k)
+    %is the number of times we observed clusters of size sizes(k).
+    [occurences, sizes] = hist(sizeArray, unique(sizeArray));
+    
 end
