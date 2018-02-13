@@ -36,11 +36,15 @@ function [truen, occurences, sizes] = numOfConComps(sim, thresh, D)
     %Return the true number of connected components/clusters.
     truen = conComponents.NumObjects;
     
-    %Get a list of sizes of the clusters.
-    sizeArray = cellfun(@(x) length(x), conComponents.PixelIdxList);
+    if nargout > 1
     
-    %Get the number of occurences for each cluster size. e.g. occurences(k)
-    %is the number of times we observed clusters of size sizes(k).
-    [occurences, sizes] = hist(sizeArray, unique(sizeArray));
+        %Get a list of sizes of the clusters.
+        sizeArray = cellfun(@(x) length(x), conComponents.PixelIdxList);
+
+        %Get the number of occurences for each cluster size. e.g. occurences(k)
+        %is the number of times we observed clusters of size sizes(k).
+        [occurences, sizes] = hist(sizeArray, unique(sizeArray));
+        
+    end
     
 end

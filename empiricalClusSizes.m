@@ -17,10 +17,10 @@
 % Authors: Tom Maullin, Samuel Davenport (05/02/2018)
 %
 % Example usage: 
-%          estimateClusSizeProportions(500, 2.58, [256, 256], 2, 9.2, 1:90)
+%          empiricalClusSizes(500, 2.58, [256, 256], 2, 9.2, 1:90)
 %==========================================================================
 
-function probabilities = estimateClusSizeProportions(nSims, thresh, dim, D, FWHM, plotRange)
+function probabilities = empiricalClusSizes(nSims, thresh, dim, D, FWHM, plotRange)
     
     %Initiate an array of zeros.
     occurences = zeros(1, dim(1)*dim(2));
