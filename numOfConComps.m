@@ -11,6 +11,12 @@
 % truen - the number of connected components in the script.
 %
 % Authors: Tom Maullin, Samuel Davenport (05/02/2018)
+%
+% EXAMPLES
+% simul = randn(10,10)
+% thresh = 1.5;
+% simul > thresh
+% numOfConComps(simul, thresh, 2)
 %==========================================================================
 function truen = numOfConComps(sim, thresh, D)
 
