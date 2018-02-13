@@ -29,4 +29,6 @@ function truen = numOfConComps(sim, thresh, D)
     
     %Return the true number of connected components/clusters.
     truen = conComponents.NumObjects;
+    
+    %sizeArray = cellfun(@(x) length(x), conComponents.PixelIdxList);
 end
