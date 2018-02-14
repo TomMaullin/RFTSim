@@ -27,7 +27,7 @@ function probabilities = empiricalNumClusProbs(nSims, thresh, dim, D, FWHM, plot
     occurences = zeros(1, dim(1)*dim(2)/4);
     
     for i = 1:nSims
-        
+        i
         truen = numOfConComps(datagen(dim, 1, 0, FWHM), thresh, D);
         occurences(truen) = occurences(truen) + 1;
         

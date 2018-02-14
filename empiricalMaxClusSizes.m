@@ -27,7 +27,7 @@ function probabilities = empiricalMaxClusSizes(nSims, thresh, dim, D, FWHM, plot
     
     %Run nSims simulations.
     for i = 1:nSims
-        
+        i
         % Generate data and calculate the maximum cluster size.
         [~, simOcc, simVals] = numOfConComps(datagen(dim, 1, 0, FWHM), thresh, D);
         
