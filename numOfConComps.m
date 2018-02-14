@@ -8,7 +8,7 @@
 %
 % And returns:
 %
-% truen - the number of connected components in the script.
+% truem - the number of connected components in the script.
 %
 % Authors: Tom Maullin, Samuel Davenport (05/02/2018)
 %
@@ -18,7 +18,7 @@
 % simul > thresh
 % numOfConComps(simul, thresh, 2)
 %==========================================================================
-function [truen, occurences, sizes] = numOfConComps(sim, thresh, D)
+function [truem, occurences, sizes] = numOfConComps(sim, thresh, D)
 
     %Remove values below threshold.
     sim(sim<=thresh) = 0;
@@ -34,7 +34,7 @@ function [truen, occurences, sizes] = numOfConComps(sim, thresh, D)
     end 
     
     %Return the true number of connected components/clusters.
-    truen = conComponents.NumObjects;
+    truem = conComponents.NumObjects;
     
     if nargout > 1
     
