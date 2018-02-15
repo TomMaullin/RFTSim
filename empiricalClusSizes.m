@@ -48,6 +48,6 @@ function probabilities = empiricalClusSizes(nSims, thresh, dim, D, FWHM, plotRan
     
     % Plot the result if you have a range to plot for.
     if sum(isnan(plotRange)) == 0
-        plot(plotRange, probabilities(plotRange))
+        plot(plotRange, probabilities(plotRange), 'linewidth', 2)
     end
 end

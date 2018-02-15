@@ -13,7 +13,7 @@ function ECvsclusters( Dim, FWHM, u_vals, nsims )
 %--------------------------------------------------------------------------
 % EXAMPLES
 % ECvsclusters( [128, 128], 8, 0:0.25:5, 5 )
-% ECvsclusters( [250,250], 5, 4:0.01:5, 50 )
+% ECvsclusters( [250,250], 5, 0:0.1:5, 50 )
 %--------------------------------------------------------------------------
 
 if nargin < 1
@@ -23,7 +23,7 @@ if nargin < 2
     FWHM = 5;
 end
 if nargin < 3
-    u_vals = 4:0.01:5;
+    u_vals = 0:0.1:5;
 end
 if nargin < 4
     nsims = 10;
@@ -49,6 +49,7 @@ for I = 1:n_u_vals
     Em(I) = m/nsims;
 end
 
+cla
 plot(u_vals, EC,'linewidth', 2)
 hold on
 plot(u_vals, Em,'linewidth', 2)

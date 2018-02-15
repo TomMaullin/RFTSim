@@ -37,6 +37,6 @@ function probabilities = empiricalNumClusProbs(nSims, thresh, dim, D, FWHM, plot
     probabilities = occurences/sum(occurences);
     
     % Plot the result.
-    plot(plotRange, probabilities(plotRange))
+    plot(plotRange, probabilities(plotRange), 'linewidth', 2)
 
 end 
