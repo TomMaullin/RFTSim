@@ -37,7 +37,7 @@ len_thresh = length(thresh);
 expected_cluster_size = zeros(1, len_thresh);
 
 for I = 1:len_thresh
-    probabilities = empiricalClusSizes(nSims, thresh(I), dim, D, FWHM, S);
+    probabilities = empiricalClusSizes(nSims, thresh(I), dim, D, FWHM);
     expected_cluster_size(I) = sum(probabilities.*(1:S));
 end
 
