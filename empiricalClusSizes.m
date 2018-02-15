@@ -23,7 +23,7 @@
 function probabilities = empiricalClusSizes(nSims, thresh, dim, D, FWHM, plotRange)
     
     %Initiate an array of zeros.
-    occurences = zeros(1, dim(1)*dim(2));
+    occurences = zeros(1, prod(dim));
     
     %Run nSims simulations.
     for i = 1:nSims
