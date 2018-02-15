@@ -14,6 +14,7 @@ function ECvsclusters( Dim, FWHM, u_vals, nsims )
 % EXAMPLES
 % ECvsclusters( [128, 128], 8, 0:0.25:5, 5 )
 % ECvsclusters( [250,250], 5, 0:0.1:5, 50 )
+% ECvsclusters( [250,250], 9.2, 0:0.1:5, 50 )
 %--------------------------------------------------------------------------
 
 if nargin < 1

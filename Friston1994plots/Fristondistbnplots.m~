@@ -1,20 +1,19 @@
-u = 4;
+u = 2.8;
 Dim = [256,256];
 D = length(Dim);
 S = prod(Dim);
-FWHM = 9.2;
+FWHM = 5;
 nSims = 250;
 
 %% Cluster Extent
-cla
-empiricalClusSizes(nSims, u, Dim, D, FWHM, 1:90);
+empiricalClusSizes(nSims, 2.8, Dim, D, 9.2, 1:90);
 hold on
-theoreticalClusSizes(u, Dim, D, FWHM, 1:90);
+theoreticalClusSizes(2.8, Dim, D, 9.2, 1:90);
 ylabel('P(n = x)')
 xlabel('Cluster extent')
 title('Distribution of Cluster Size')
 legend(strcat('Empirical after ',num2str(nSims),' simulations'), 'theoretical')
 
-%% Number of Clusters
+%% 
 
 

@@ -33,6 +33,6 @@ function theoreticalClusSizes(thresh, dim, D, FWHM, plotRange)
     probabilities = (2*beta/D)*plotRange.^(2/D -1).*exp(-beta*plotRange.^(2/D));
     
     % Plot the result.
-    plot(plotRange, probabilities)
+    plot(plotRange, probabilities, 'linewidth', 2)
 
 end

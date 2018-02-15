@@ -31,5 +31,5 @@ function probabilities = theoreticalNumClusProbs(thresh, dim, D, FWHM, plotRange
     probabilities = 1./factorial(plotRange).*(Em.^plotRange)*exp(-Em);
     
     % Plot the result.
-    plot(plotRange, probabilities)
+    plot(plotRange, probabilities, 'linewidth', 2)
 end 
