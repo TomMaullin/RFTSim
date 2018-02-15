@@ -12,7 +12,7 @@ function expected_cluster_size = empClusSizeMean(nSims, thresh, dim, FWHM)
 %
 %--------------------------------------------------------------------------
 % EXAMPLES
-% empClusSizeMean(50, 1.5:0.25:3, [256,256], 9.2)
+% empClusSizeMean(50, 2:0.1:5, [256,256], 9.2)
 %--------------------------------------------------------------------------
 % SEE ALSO
 %
