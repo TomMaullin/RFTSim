@@ -63,6 +63,7 @@ if len_thresh > 1
     hold on
     plot(thresh, fristonEn,'linewidth', 2)
     legend('Empirical', 'Nosko', 'Friston')
+    export_fig Encomparisons.pdf -transparent -nocrop
 end
     
 end
