@@ -21,14 +21,9 @@
 %==========================================================================
 
 function probabilities = empiricalClusSizes(nSims, thresh, dim, D, FWHM, plotRange)
-    if nargin < 6
-        plotRange = NaN;
-        %To make the default be that there is no plot if this input is not
-        %included.
-    end
-
+    
     %Initiate an array of zeros.
-    occurences = zeros(1, prod(dim));
+    occurences = zeros(1, dim(1)*dim(2));
     
     %Run nSims simulations.
     for i = 1:nSims
@@ -46,8 +41,6 @@ function probabilities = empiricalClusSizes(nSims, thresh, dim, D, FWHM, plotRan
     % Change from counts into probabilities. 
     probabilities = occurences/sum(occurences);
     
-    % Plot the result if you have a range to plot for.
-    if sum(isnan(plotRange)) == 0
-        plot(plotRange, probabilities(plotRange), 'linewidth', 2)
-    end
+    % Plot the result.
+    plot(plotRange, probabilities(plotRange))
 end

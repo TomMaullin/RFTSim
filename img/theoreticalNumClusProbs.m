@@ -24,12 +24,19 @@
 function probabilities = theoreticalNumClusProbs(thresh, dim, D, FWHM, plotRange)
     
     % Get expected m and expected N
-    S = dim(1)*dim(2);
-    Em = expectedm(S, D, FWHM/sqrt(4*log(2)), thresh);
+    if D==2
+        S = dim(1)*dim(2);
+    elseif D==3
+        S = dim(1)*dim(2)*dim(3);
+    else
+        error('Nooooo')
+    end
+    
+    Em = expectedm(S, D, FWHM/sqrt(4*log(2)), thresh)
     
     % Calculate P(m=x)
     probabilities = 1./factorial(plotRange).*(Em.^plotRange)*exp(-Em);
     
     % Plot the result.
-    plot(plotRange, probabilities, 'linewidth', 2)
+    plot(plotRange, probabilities)
 end 

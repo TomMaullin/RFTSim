@@ -1,0 +1,21 @@
+This simulation was run with the following parameters:
+
+Threshold = 2.58
+Dimensions = [32, 32, 64]
+Smoothing = 5.7
+
+10 blocks of 5000 iterations were run.
+
+Results included are:
+
+- numPeaksPerClus.mat
+
+    Loading numPeaksPerClus.mat gives the variable obsCountsFull.
+    obsCountsFull(1:j, 1:k) shows the number of times that between 1 and k 
+    peaks were observed in clusters of size 1 to j.
+
+- numClus.mat
+
+    Loading numClus.mat gives the variable occurencesFull.
+    occurencesFull(1:j) shows the number of clusters that were observed of 
+    size 1 to j respectively.

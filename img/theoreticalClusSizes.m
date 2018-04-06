@@ -29,10 +29,12 @@ function theoreticalClusSizes(thresh, dim, D, FWHM, plotRange)
     %Get beta.
     beta = cluster_beta(Em, EN, D);
     
+    1/beta
+    
     %Work out the P(n=x)
     probabilities = (2*beta/D)*plotRange.^(2/D -1).*exp(-beta*plotRange.^(2/D));
     
     % Plot the result.
-    plot(plotRange, probabilities, 'linewidth', 2)
+    plot(plotRange, probabilities)
 
 end

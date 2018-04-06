@@ -18,25 +18,31 @@
 % Authors: Tom Maullin, Samuel Davenport (05/02/2018)
 %
 % Example usage: 
-%          empiricalNumClusProbs(50000, 2.58, [256, 256], 2, 9.2, 1:90)
+%          empiricalNumPeaks(50000, 2.58, [256, 256], 2, 9.2, 1:90)
 %==========================================================================
 
-function probabilities = empiricalNumClusProbs(nSims, thresh, dim, D, FWHM, plotRange)
+function probabilities = empiricalNumPeaks(nSims, thresh, dim, D, FWHM, plotRange, iter)
+
+    addpath(genpath('/storage/u1406435/code/spm12'))
+    addpath(genpath('/storage/u1406435/temporary/RFTSim'))
     
     %Initiate an array of zeros.
-    occurences = zeros(1, dim(1)*dim(2)/4);
+    occurences = zeros(1, dim(1)*dim(2)*dim(3));
     
     for i = 1:nSims
         i
-        truen = numOfConComps(datagen(dim, 1, 0, FWHM), thresh, D);
+        truen = numOfPeaks(datagen(dim, 1, 0, FWHM), thresh, D);
         occurences(truen) = occurences(truen) + 1;
         
     end
-    
-    % Change from counts into probabilities. 
-    probabilities = occurences/sum(occurences);
-    
-    % Plot the result.
-    plot(plotRange, probabilities(plotRange), 'linewidth', 2)
+%     
+%     % Change from counts into probabilities. 
+%     probabilities = occurences/sum(occurences);
+%     
+%     % Plot the result.
+%     plot(plotRange, probabilities(plotRange))
+
+    % Save the counts
+    save(['/storage/u1406435/temporary/RFTSim/sim/NumClus' num2str(iter)], 'occurences')
 
 end 

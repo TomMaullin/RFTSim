@@ -34,5 +34,5 @@ function probabilities = theoreticalMaxClusSizes(thresh, dim, D, FWHM, plotRange
     probabilities = 1 - exp(-Em.*exp(-beta.*(plotRange.^(2/D))));
     
     % Plot the result.
-    plot(plotRange, probabilities, 'linewidth', 2)
+    plot(plotRange, probabilities)
 end

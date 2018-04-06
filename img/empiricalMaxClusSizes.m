@@ -44,5 +44,5 @@ function probabilities = empiricalMaxClusSizes(nSims, thresh, dim, D, FWHM, plot
     end
     
     % Plot the result.
-    plot(plotRange, probabilities(plotRange), 'linewidth', 2)
+    plot(plotRange, probabilities(plotRange))
 end
