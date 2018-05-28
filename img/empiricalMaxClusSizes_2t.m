@@ -38,6 +38,9 @@ function empiricalMaxClusSizes_2t(nSims, thresh, dim, D, FWHM)
         [~, ~, simVals_u] = numOfConComps(sim, thresh, D, 'upper');
         [~, ~, simVals_l] = numOfConComps(sim, thresh, D, 'lower');
         
+        disp(simVals_u)
+        disp(simVals_l)
+        
         % Record upper occurences.
         occurences_u(max(simVals_u)) = occurences_u(max(simVals_u)) + 1;
         
