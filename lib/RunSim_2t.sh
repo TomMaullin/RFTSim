@@ -11,4 +11,4 @@
 
 module add matlab
 
-matlab -nodisplay -r "empiricalMaxClusSizes_2t(10000, 2.58, [91, 109, 91], 3, 9.2);quit"
+matlab -nodisplay -r "addpath(genpath('/storage/u1406435/code/spm12'));addpath(genpath('/storage/u1406435/code/RFTSim'));empiricalMaxClusSizes_2t(10000, 2.58, [91, 109, 91], 3, 9.2);quit"
