@@ -18,9 +18,19 @@
 % simul > thresh
 % numOfConComps(simul, thresh, 2)
 %==========================================================================
-function [truem, occurences, sizes] = numOfConComps(sim, thresh, D)
-    %Remove values below threshold.
-    sim(sim<=thresh) = 0;
+function [truem, occurences, sizes] = numOfConComps(sim, thresh, D, uOrl)
+
+    if strcmp(uOrl, 'upper')
+        
+        %Remove values below threshold.
+        sim(sim<=thresh) = 0;
+        
+    else
+        
+        %Remove values above threshold
+        sim(sim>=thresh)=0;
+        
+    end
 
 
     %If we're in the 2d case only look at components connected vertically
