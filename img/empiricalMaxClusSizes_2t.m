@@ -36,11 +36,8 @@ function empiricalMaxClusSizes_2t(nSims, thresh, dim, D, FWHM)
         
         % Generate data and calculate the maximum cluster size.
         [~, ~, simVals_u] = numOfConComps(sim, thresh, D, 'upper');
-        [~, ~, simVals_l] = numOfConComps(sim, thresh, D, 'lower');
-        
-        disp(simVals_u)
-        disp(simVals_l)
-        
+        [~, ~, simVals_l] = numOfConComps(sim, -thresh, D, 'lower');
+                
         % Record upper occurences.
         occurences_u(max(simVals_u)) = occurences_u(max(simVals_u)) + 1;
         
@@ -48,7 +45,7 @@ function empiricalMaxClusSizes_2t(nSims, thresh, dim, D, FWHM)
         occurences_l(max(simVals_l)) = occurences_l(max(simVals_l)) + 1;
         
         % Record either upper of lower occurences.
-        occurences_e(min(max(simVals_l), max(simVals_u))) = occurences_e(min(max(simVals_l), max(simVals_u))) + 1;
+        occurences_e(max(max(simVals_l), max(simVals_u))) = occurences_e(max(max(simVals_l), max(simVals_u))) + 1;
         
         
     end
