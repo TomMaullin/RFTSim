@@ -2,16 +2,30 @@ addpath('C:\Users\TomM\Documents\spm12\spm12')
 addpath(genpath('C:\Users\TomM\Documents\Repositorys\RFTsim'));
 
 for i = 1:50
-    % Generate a smooth RF.
-    smoothrf = datagen([100, 100, 100], 1, 0, 5.9);
+    
+%     % Resel parameters
+%     FWHM = 5.9;
+%     r = 1/FWHM;
+%     
+%     % Generate a smooth RF.
+%     smoothrf = datagen([100, 100, 100], 1, 0, FWHM);
+% 
+%     % Threshold it
+%     thrsh=2.2;
+%     excSet=smoothrf>thrsh;
 
-    % Threshold it
-    thrsh=2.2;
-    excSet=smoothrf>thrsh;
+    % Temp check
+    x = zeros(2, 2, 2);
+    x(1, 1, 2) = 1;
+    x(2, 2, 2) = 1;
+    x(2, 1, 1) = 1;
+    x(1, 2, 1) = 1;
+    excSet = x;
+    d = size(excSet, 1)+2;
 
     % Pad with zeros.
-    excSet_pad = zeros(size(excSet,1)+2, size(excSet,2)+2, size(excSet,3)+2);
-    excSet_pad(2:101, 2:101, 2:101) = excSet;
+    excSet_pad = zeros(d, d, d);
+    excSet_pad(2:(d-1), 2:(d-1), 2:(d-1)) = excSet;
     excSet = excSet_pad;
 
     % Get the number of cubes, faces, edges and points.
@@ -20,10 +34,8 @@ for i = 1:50
     numEdges  = nE(excSet);
     numPoints = nP(excSet);
 
-    % Degenerate edges and points
+    % Degenerate edges
     numdEdges  = ndE(excSet);
-    numd2Points = n2dP(excSet);
-    numd3Points = n3dP(excSet);
 
     % Get intrinsic volumes
     R0_6  = numPoints - numEdges + numFaces - numCubes + numd2Points + numd3Points - numdEdges; 
@@ -33,6 +45,13 @@ for i = 1:50
     sprintf('R0: 6 %.3f, 18 %.3f, 26 %.3f', R0_6, R0_18, R0_26)
 end
     
+
+function R0_6(excSet)
+
+
+
+end
+
 function nCubes = nC(excSet)
 
     nCubes = sum(sum(sum(excSet)));
@@ -40,10 +59,12 @@ function nCubes = nC(excSet)
 end
 
 function nFaces = nF(excSet)
+
+    d = size(excSet,1);
     
     % Faces matrix for x direction.
-    mx1 = excSet(1:101, :, :);
-    mx2 = excSet(2:102, :, :);
+    mx1 = excSet(1:(d-1), :, :);
+    mx2 = excSet(2:d, :, :);
     faces_x = mx1 + mx2 - mx1.*mx2;
     
     % Number of faces in x direction
@@ -51,8 +72,8 @@ function nFaces = nF(excSet)
     clear x1 x2 faces_x
     
     % Faces matrix for y direction.
-    my1 = excSet(:, 1:101, :);
-    my2 = excSet(:, 2:102, :);
+    my1 = excSet(:, 1:(d-1), :);
+    my2 = excSet(:, 2:d, :);
     faces_y = my1 + my2 - my1.*my2;
     
     % Number of faces in y direction
@@ -60,8 +81,8 @@ function nFaces = nF(excSet)
     clear y1 y2 faces_y
     
     % Faces matrix for z direction.
-    z1 = excSet(:, :, 1:101);
-    z2 = excSet(:, :, 2:102);
+    z1 = excSet(:, :, 1:(d-1));
+    z2 = excSet(:, :, 2:d);
     faces_z = z1 + z2 - z1.*z2;
     
     % Number of faces in z direction
@@ -74,12 +95,14 @@ function nFaces = nF(excSet)
 end
 
 function nEdges = nE(excSet)
+
+    d = size(excSet,1);
     
     % Matrices needed for counting edges in x direction.
-    mx1 = excSet(:, 1:101, 1:101);
-    mx2 = excSet(:, 1:101, 2:102);
-    mx3 = excSet(:, 2:102, 2:102);
-    mx4 = excSet(:, 2:102, 1:101);
+    mx1 = excSet(:, 1:(d-1), 1:(d-1));
+    mx2 = excSet(:, 1:(d-1), 2:d);
+    mx3 = excSet(:, 2:d, 2:d);
+    mx4 = excSet(:, 2:d, 1:(d-1));
     
     % x or matrices.
     mx1_or_mx2 = mx1 + mx2 - mx1.*mx2;
@@ -95,10 +118,10 @@ function nEdges = nE(excSet)
     clear x_or_matrix
     
     % Matrices needed for counting edges in y direction.
-    my1 = excSet(1:101, :, 1:101);
-    my2 = excSet(1:101, :, 2:102);
-    my3 = excSet(2:102, :, 2:102);
-    my4 = excSet(2:102, :, 1:101);
+    my1 = excSet(1:(d-1), :, 1:(d-1));
+    my2 = excSet(1:(d-1), :, 2:d);
+    my3 = excSet(2:d, :, 2:d);
+    my4 = excSet(2:d, :, 1:(d-1));
     
     % y or matrices.
     my1_or_my2 = my1 + my2 - my1.*my2;
@@ -114,10 +137,10 @@ function nEdges = nE(excSet)
     clear y_or_matrix
     
     % Matrices needed for counting edges in z direction.
-    mz1 = excSet(1:101, 1:101, :);
-    mz2 = excSet(1:101, 2:102, :);
-    mz3 = excSet(2:102, 2:102, :);
-    mz4 = excSet(2:102, 1:101, :);
+    mz1 = excSet(1:(d-1), 1:(d-1), :);
+    mz2 = excSet(1:(d-1), 2:d, :);
+    mz3 = excSet(2:d, 2:d, :);
+    mz4 = excSet(2:d, 1:(d-1), :);
     
     % z or matrices.
     mz1_or_mz2 = mz1 + mz2 - mz1.*mz2;
@@ -138,11 +161,13 @@ end
 
 function nDegenEdges = ndE(excSet)
 
+    d = size(excSet,1);
+    
     % Matrices needed for counting edges in x direction.
-    mx1 = excSet(:, 1:101, 1:101);
-    mx2 = excSet(:, 1:101, 2:102);
-    mx3 = excSet(:, 2:102, 2:102);
-    mx4 = excSet(:, 2:102, 1:101);
+    mx1 = excSet(:, 1:(d-1), 1:(d-1));
+    mx2 = excSet(:, 1:(d-1), 2:d);
+    mx3 = excSet(:, 2:d, 2:d);
+    mx4 = excSet(:, 2:d, 1:(d-1));
     
     % x and matrices.
     mx1_and_mx3 = mx1.*mx3;
@@ -161,10 +186,10 @@ function nDegenEdges = ndE(excSet)
     clear dx1 dx2
 
     % Matrices needed for counting edges in y direction.
-    my1 = excSet(1:101, :, 1:101);
-    my2 = excSet(1:101, :, 2:102);
-    my3 = excSet(2:102, :, 2:102);
-    my4 = excSet(2:102, :, 1:101);
+    my1 = excSet(1:(d-1), :, 1:(d-1));
+    my2 = excSet(1:(d-1), :, 2:d);
+    my3 = excSet(2:d, :, 2:d);
+    my4 = excSet(2:d, :, 1:(d-1));
     
     % y and matrices.
     my1_and_my3 = my1.*my3;
@@ -183,10 +208,10 @@ function nDegenEdges = ndE(excSet)
     clear dy1 dy2    
     
     % Matrices needed for counting edges in z direction.
-    mz1 = excSet(1:101, 1:101, :);
-    mz2 = excSet(1:101, 2:102, :);
-    mz3 = excSet(2:102, 2:102, :);
-    mz4 = excSet(2:102, 1:101, :);
+    mz1 = excSet(1:(d-1), 1:(d-1), :);
+    mz2 = excSet(1:(d-1), 2:d, :);
+    mz3 = excSet(2:d, 2:d, :);
+    mz4 = excSet(2:d, 1:(d-1), :);
     
     % z and matrices.
     mz1_and_mz3 = mz1.*mz3;
@@ -210,16 +235,18 @@ end
 
 
 function nPoints = nP(excSet)
+
+    d = size(excSet,1);
     
     % Matrices needed for counting points.
-    m1 = excSet(1:101, 1:101, 1:101);
-    m2 = excSet(1:101, 2:102, 1:101);
-    m3 = excSet(2:102, 2:102, 1:101);
-    m4 = excSet(2:102, 1:101, 1:101);
-    m5 = excSet(1:101, 1:101, 2:102);
-    m6 = excSet(1:101, 2:102, 2:102);
-    m7 = excSet(2:102, 2:102, 2:102);
-    m8 = excSet(2:102, 1:101, 2:102);
+    m1 = excSet(1:(d-1), 1:(d-1), 1:(d-1));
+    m2 = excSet(1:(d-1), 2:d, 1:(d-1));
+    m3 = excSet(2:d, 2:d, 1:(d-1));
+    m4 = excSet(2:d, 1:(d-1), 1:(d-1));
+    m5 = excSet(1:(d-1), 1:(d-1), 2:d);
+    m6 = excSet(1:(d-1), 2:d, 2:d);
+    m7 = excSet(2:d, 2:d, 2:d);
+    m8 = excSet(2:d, 1:(d-1), 2:d);
     
     % Or matrices
     m1_or_m2 = m1 + m2 - m1.*m2;
@@ -240,82 +267,3 @@ function nPoints = nP(excSet)
     nPoints = sum(sum(sum(or_matrix)));
     clear or_matrix
 end
-
-function n2DegenPoints = n2dP(excSet)
-
-    m1 = excSet(1:101, 1:101, 1:101);
-    m2 = excSet(1:101, 2:102, 1:101);
-    m3 = excSet(2:102, 2:102, 1:101);
-    m4 = excSet(2:102, 1:101, 1:101);
-    m5 = excSet(1:101, 1:101, 2:102);
-    m6 = excSet(1:101, 2:102, 2:102);
-    m7 = excSet(2:102, 2:102, 2:102);
-    m8 = excSet(2:102, 1:101, 2:102);
-    
-    diag1 = m1.*(1-m2).*(1-m3).*(1-m4).*(1-m5).*(1-m6).*m7.*(1-m8);
-    diag2 = (1-m1).*m2.*(1-m3).*(1-m4).*(1-m5).*(1-m6).*(1-m7).*m8;
-    diag3 = (1-m1).*(1-m2).*m3.*(1-m4).*m5.*(1-m6).*(1-m7).*(1-m8);
-    diag4 = (1-m1).*(1-m2).*(1-m3).*m4.*(1-m5).*m6.*(1-m7).*(1-m8);
-    clear m1 m2 m3 m4 m5 m6 m7 m8
-    
-    n2DegenPoints = sum(sum(sum(diag1))) + sum(sum(sum(diag2))) + ...
-                    sum(sum(sum(diag3))) + sum(sum(sum(diag4))); 
-    clear diag1 diag2 diag3 diag4
-
-end
-
-function n3DegenPoints = n3dP(excSet)
-
-    m1 = excSet(1:101, 1:101, 1:101);
-    m2 = excSet(1:101, 2:102, 1:101);
-    m3 = excSet(2:102, 2:102, 1:101);
-    m4 = excSet(2:102, 1:101, 1:101);
-    m5 = excSet(1:101, 1:101, 2:102);
-    m6 = excSet(1:101, 2:102, 2:102);
-    m7 = excSet(2:102, 2:102, 2:102);
-    m8 = excSet(2:102, 1:101, 2:102);
-    
-    % x=1
-    xdiag1 = m1.*m6.*(1-m2).*(1-m5);
-    xdiag2 = m2.*m5.*(1-m1).*(1-m6);
-    
-    % x=2
-    xdiag3 = m3.*m8.*(1-m4).*(1-m7);
-    xdiag4 = m4.*m7.*(1-m3).*(1-m8);
-    
-    % Degenerate matrices
-    xdeg1 = xdiag1 + xdiag4 - xdiag1.*xdiag4;
-    xdeg2 = xdiag2 + xdiag3 - xdiag2.*xdiag3;
-    clear xdiag1 xdiag2 xdiag3 xdiag4
-    
-    % y=1
-    ydiag1 = m1.*m8.*(1-m4).*(1-m5);
-    ydiag2 = m4.*m5.*(1-m1).*(1-m8);
-    
-    % y=2
-    ydiag3 = m2.*m7.*(1-m3).*(1-m6);
-    ydiag4 = m3.*m6.*(1-m2).*(1-m7);
-    
-    % Degenerate matrices
-    ydeg1 = ydiag1 + ydiag3 - ydiag1.*ydiag3;
-    ydeg2 = ydiag2 + ydiag4 - ydiag2.*ydiag4;
-    clear ydiag1 ydiag2 ydiag3 ydiag4
-    
-    % z = 1
-    zdiag1 = m1.*m3.*(1-m2).*(1-m4);
-    zdiag2 = m2.*m4.*(1-m1).*(1-m3);
-    
-    % z = 2
-    zdiag3 = m5.*m7.*(1-m6).*(1-m8);
-    zdiag4 = m6.*m8.*(1-m5).*(1-m7);
-    
-    % Degenerate matrices
-    zdeg1 = zdiag1 + zdiag3 - zdiag1.*zdiag3;
-    zdeg2 = zdiag2 + zdiag4 - zdiag2.*zdiag4;
-    clear zdiag1 zdiag2 zdiag3 zdiag4
-    
-    n3DegenPoints = sum(sum(sum(xdeg1))) + sum(sum(sum(xdeg2))) + ...
-                    sum(sum(sum(ydeg1))) + sum(sum(sum(ydeg2))) + ...
-                    sum(sum(sum(zdeg1))) + sum(sum(sum(zdeg2)));
-
-end 
